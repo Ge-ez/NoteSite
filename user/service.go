@@ -32,3 +32,18 @@ func (user *UserRepositoryPostgres) Save(signup *models.User) error {
   return nil
 
 }
+func (user *UserRepositoryPostgres) Login(username string) (*models.Usercheck, error) {
+  query := SELECT username,password FROM users WHERE username = $1
+  var login models.Usercheck
+  statement, err := user.db.Prepare(query)
+  if err != nil {
+    return nil, err
+  }
+  defer statement.Close()
+
+  err = statement.QueryRow(username).Scan(&login.Username, &login.Password)
+  if err != nil {
+    return nil, err
+  }
+  return &login, nil
+}
