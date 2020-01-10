@@ -47,3 +47,18 @@ func (user *UserRepositoryPostgres) Login(username string) (*models.Usercheck, e
   }
   return &login, nil
 }
+
+func (user *UserRepositoryPostgres) UpdateUser(id string,update *models.User) error{
+  query := "UPDATE users SET name=$1, username=$2,password=$3,email=$4,about=$5 WHERE id=$6"
+  statement, err := user.db.Prepare(query)
+  if err != nil {
+    return err
+  }
+  defer statement.Close()
+  _, err = statement.Exec(update.Name, update.Username, update.Email, update.Password, update.About)
+
+  if err != nil {
+    return err
+  }
+  return nil
+}
