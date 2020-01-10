@@ -6,4 +6,5 @@ import (
 
 type UserRepository interface {
   Save(*models.User) error
+  Login(username string) (*models.Usercheck, error)
 }
