@@ -98,6 +98,7 @@
 }
 .service-img {
   width: 100px;
+  height: 100px;
   margin-top: 20px;
 }
 .service {
@@ -128,4 +129,11 @@
   margin-bottom: 40px;
   display: block;
   transform: translateY(8px);
+}
+.page-footer {
+  background-color: bisque;
+}
+
+footer .container {
+  align-items: center;
 }
