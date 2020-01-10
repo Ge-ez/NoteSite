@@ -20,3 +20,12 @@ func Signin(username string, repo user.UserRepository) (*models.Usercheck, error
   return login, nil
 
 }
+
+func Update(user *models.User,repo UserRepository) error{
+  err := repo.UpdateUser(user.ID,user)
+  if err!=nil{
+    return err
+  }
+
+  return nil
+}
