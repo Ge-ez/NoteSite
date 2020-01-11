@@ -6,8 +6,8 @@ import (
 
 type UserRepository interface {
   Save(*models.User) error
-  Login(username string) (*models.Usercheck, error)
-  UpdateUser(id string,*models.User) error
+  findbyusername(username string) (*models.Usercheck, error)
+  Update(id uint32,*models.User) error
 
 }
  
