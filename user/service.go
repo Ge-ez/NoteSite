@@ -32,7 +32,7 @@ func (user *UserRepositoryPostgres) Save(signup *models.User) error {
   return nil
 
 }
-func (user *UserRepositoryPostgres) findbyusername(username string) (*models.Usercheck, error) {
+func (user *UserRepositoryPostgres) Findbyusername(username string) (*models.Usercheck, error) {
   query := `SELECT username,password FROM users WHERE username = $1`
   var login models.Usercheck
   statement, err := user.db.Prepare(query)
