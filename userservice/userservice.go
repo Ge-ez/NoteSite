@@ -12,7 +12,7 @@ func Signup(user *models.User, repo user.UserRepository) error {
   }
   return nil
 }
-func Signin(username string, repo user.UserRepository) (*models.Usercheck, error) {
+func Findusername(username string, repo user.UserRepository) (*models.Usercheck, error) {
   login, err := repo.Login(username)
   if err != nil {
     return nil, err
