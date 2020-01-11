@@ -32,8 +32,8 @@ func (user *UserRepositoryPostgres) Save(signup *models.User) error {
   return nil
 
 }
-func (user *UserRepositoryPostgres) Login(username string) (*models.Usercheck, error) {
-  query := SELECT username,password FROM users WHERE username = $1
+func (user *UserRepositoryPostgres) findbyusername(username string) (*models.Usercheck, error) {
+  query := `SELECT username,password FROM users WHERE username = $1`
   var login models.Usercheck
   statement, err := user.db.Prepare(query)
   if err != nil {
@@ -48,8 +48,8 @@ func (user *UserRepositoryPostgres) Login(username string) (*models.Usercheck, e
   return &login, nil
 }
 
-func (user *UserRepositoryPostgres) UpdateUser(id string,update *models.User) error{
-  query := "UPDATE users SET name=$1, username=$2,password=$3,email=$4,about=$5 WHERE id=$6"
+func (user *UserRepositoryPostgres) Update(id uint32,update *models.User) error{
+  query := `UPDATE users SET name=$1, username=$2,password=$3,email=$4,about=$5 WHERE id=$6`
   statement, err := user.db.Prepare(query)
   if err != nil {
     return err
