@@ -62,3 +62,13 @@ func (postRepo *PostGormRepo) DeletePost(id uint) (*models.Post, []error) {
 	}
 	return post, errs
 }
+
+//StorePost stores a given Post in the database
+func (postRepo *PostGormRepo) StorePost(posts *models.Post) (*models.Post, []error) {
+	post := posts
+	errs := postRepo.conn.Create(post).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return post, errs
+}
