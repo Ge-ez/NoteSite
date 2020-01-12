@@ -139,7 +139,6 @@ return usr,nil
 	// 	return errors.New("Update has faild")
 	// }
 	// return nil
-
 }
 
 //DeleteUser ... Delete user
