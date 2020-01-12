@@ -30,7 +30,7 @@ if len(errs) > 0 {
 }
 return users,nil
 
-	// //username taken?
+	// username taken ?
 	// _,err := uri.conn.Query("SELECT * FROM users where username = $1", user.UserName)
 	// if err != nil {
 	// 	//fmt.Println("here is the problem")
