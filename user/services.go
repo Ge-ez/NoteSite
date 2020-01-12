@@ -5,7 +5,7 @@ import (
 )
 
 
-//UserService ... this is our service usescase(has (interface)abstract classes that outer layers can use)
+//UserService ...
 type UserService interface {
 	RegisterUser(user *models.User)(*models.User,error)
 	AuthenticateUser(userName string, password string) (*models.Usercheck, error)
