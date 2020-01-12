@@ -99,3 +99,51 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	uh.tmpl.ExecuteTemplate(w, "index.html", nil)
 }
 
+func (uh *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
+	if uh.alreadyLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	var u *models.User
+	if r.Method == http.MethodPost {
+		name := r.FormValue("SignupName")
+		un := r.FormValue("SignupUsername")
+		email := r.FormValue("SignupEmail")
+		pass := r.FormValue("SignupPaassword")
+		gender := r.FormValue("gender")
+		role := r.FormValue("role")
+		course := r.FormValue("course")
+
+		_, err := uh.userSrv.GetUser(un)
+		if err != nil {
+			http.Error(w, "username already taken", http.StatusForbidden)
+			return
+		}
+
+		//create a session
+		sID, _ := uuid.NewV4()
+		c := &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+		http.SetCookie(w, c)
+		dbSessions[c.Value] = un
+		//store user in the database
+		bs, err := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.MinCost)
+		if err != nil {
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+		joindate := time.Now()
+		//?? what should i put int he place of user id???????????
+		u = &models.User{Name:name,Username:un,Email:email,Password:string(bs),Gender:gender,Role:role,Course:course,Joindate:joindate}
+		
+
+		uh.userSrv.RegisterUser(u)
+		//redirect
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	uh.tmpl.ExecuteTemplate(w, "index.html", u)
+
+}
