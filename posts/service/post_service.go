@@ -13,3 +13,12 @@ type PostService struct {
 func NewPostService(postsRepo posts.PostRepository) posts.PostService {
 	return &PostService{postRep: postsRepo}
 }
+
+//Posts returns all stored Posts
+func (ps *PostService) Posts() ([]models.Post, []error) {
+	posts, err := ps.postRep.Posts()
+	if len(err) > 0 {
+		return nil, err
+	}
+	return posts, err
+}
