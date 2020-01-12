@@ -46,6 +46,11 @@ func main() {
 	router.POST("/comment", commentHandler.PostComment)
 	router.PUT("/comments/:id", commentHandler.PutComment)
 	router.DELETE("/comments/:id", commentHandler.DeleteComment
+		      
+		      http.ListenAndServe(":8080", router)
+
+		      
+		      
 
 }
 
