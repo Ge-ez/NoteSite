@@ -30,9 +30,17 @@ func main() {
 	postRepo := postrepo.NewPostGormRepo(db)
 	postService := postserv.NewPostService(postRepo)
 	postHandler := handlers.NewPostHandler(postService)
-
-
 	
+	router := httprouter.New()
+
+
+	router.GET("/posts", postHandler.GetPosts)
+	router.GET("/posts/:id", postHandler.GetPost)
+	router.POST("/post", postHandler.Postposts)
+	router.PUT("/posts/:id", postHandler.PutPost)
+	router.DELETE("/posts/:id", postHandler.DeletePost)
+	
+
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
