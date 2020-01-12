@@ -91,4 +91,80 @@ return &user,errors.New("username and/or password do not match")
 	// }
 	// return user, errors.New("username and/or password do not match")	
 }
+func (uri *UserRepositoryImpl) GetUser(userName string) (*models.User, error) {
+	user:=models.User{}
+
+
+	//check username if exist return users
+	rows,err := uri.conn.Raw("SELECT * FROM users WHERE username = ?",userName).Rows()
+	if rows != nil{
+		for rows.Next(){
+			uri.conn.ScanRows(rows,&user)
+		}
+		if err != nil{
+			return &user,err
+		}
+		return &user,nil
+	}
+	return &user,errors.New("user not found")
+
+
+
+	// // check username if exist return users
+	// row := uri.conn.QueryRow("SELECT * FROM users where username = $1", userName)
+	// user := models.User{}
+	// if row != nil {
+	// 	err := row.Scan(&user.UserID, &user.FirstName, &user.LastName, &user.UserName, &user.Email,&user.Password, &user.Phone, &user.Image)
+	// 	if err != nil {
+	// 		return user, err
+	// 	}
+	// 	return user, nil
+	// }
+	// return user, errors.New("user not found")
+
+}
+
+//EditUser ... edit our user model
+func (uri *UserRepositoryImpl) EditUser(user *models.User)(*models.User ,[]error) {
+usr:= user
+errs :=uri.conn.Save(usr).GetErrors()
+
+if len(errs)>0{
+	return nil,errs
+}
+return usr,nil
+
+	// _, err := uri.conn.Exec("UPDATE users SET first_name = $1,last_name = $2,username = $3,email = $4,password= $5, phone = $6,image = $7 WHERE id = $8", user.FirstName, user.LastName, user.UserName, user.Email,user.Password, user.Phone, user.Image,user.UserID)
+	// if err != nil {
+	// 	return errors.New("Update has faild")
+	// }
+	// return nil
+
+}
+
+//DeleteUser ... Delete user
+func (uri *UserRepositoryImpl) DeleteUser(id uint) (*models.User,error) {
+	user := models.User{}
+rows,err:= uri.conn.Raw("DELETE FROM users WHERE id = ?",id).Rows()
+if rows != nil{
+for rows.Next(){
+	uri.conn.ScanRows(rows,&user)
+}
+if err != nil{
+	return &user,err
+}
+return &user,nil
+	
+}
+return &user,errors.New("user not found")
+
+
+	// _, err := uri.conn.Exec("DELETE FROM users WHERE id = $1", id)
+	// if err != nil {
+	// 	return errors.New("Delete has faild")
+	// }
+	// return nil
+	
+	
+}
 
