@@ -20,7 +20,10 @@ func init() {
 }
 
 func main() {
- 
+ db:=database.Conn()
+
+	defer db.Close()
+
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
