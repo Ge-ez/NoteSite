@@ -49,3 +49,21 @@ func (as *CommentService) DeleteComment(id uint) (*models.Comment, []error) {
 	}
 	return commt, errs
 }
+
+//StoreComment stores a given Comment
+func (as *CommentService) StoreComment(comment *models.Comment) (*models.Comment, []error) {
+	commt, errs := as.commentRepo.StoreComment(comment)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
+
+//Postcomments returns comments for a Post
+func (as *CommentService) PostComments(post *models.Post, comment *models.Comment) ([]models.Comment, []error) {
+	commts, errs := as.commentRepo.PostComments(post, comment)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commts, errs
+}
