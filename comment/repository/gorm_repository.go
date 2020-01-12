@@ -47,3 +47,38 @@ func (commtRepo *CommentGormRepo) UpdateComment(comment *models.Comment) (*model
 	}
 	return commt, errs
 }
+
+//Deletecomment deletes a comment with a given id from the database
+func (commtRepo *CommentGormRepo) DeleteComment(id uint) (*models.Comment, []error) {
+	commt, errs := commtRepo.Comment(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	// errs := commtRepo.conn.Where("id = ?", id).First(&commt).GetErrors()
+	errs = commtRepo.conn.Delete(commt).GetErrors()
+
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
+
+//Storecomment stores a given comment in the database
+func (commtRepo *CommentGormRepo) StoreComment(comment *models.Comment) (*models.Comment, []error) {
+	commt := comment
+	errs := commtRepo.conn.Create(commt).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
+
+//PostComments returns comments for a post
+func (commtRepo *CommentGormRepo) PostComments(post *models.Post, Comment *models.Comment) ([]models.Comment, []error) {
+	commt := []models.Comment{}
+	errs := commtRepo.conn.Find(&commt).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
