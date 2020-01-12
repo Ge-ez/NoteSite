@@ -152,3 +152,36 @@ func (ah *CommentHandler) PutComment(w http.ResponseWriter, r *http.Request, ps 
 	return
 
 }
+
+//Deletecomment handles DELETE comments/:id request
+func (ah *CommentHandler) DeleteComment(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+id, err := strconv.Atoi(ps.ByName("id"))
+
+    	if err != nil {
+    		w.Header().Set("Content-Type", "application/json")
+    		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+    		return
+    	}
+
+	deletedComment, errs := ah.commentService.DeleteComment(uint(id))
+
+	if len(errs) > 0 {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+
+	// log.Println(deletedComment)
+	output, err := json.MarshalIndent(deletedComment, "", "\t")
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+	// log.Println(output)
+	w.Header().Set("Content-Type", "application/json")
+	// w.WriteHeader(http.StatusNoContent)
+	w.Write(output)
+	return
+}
