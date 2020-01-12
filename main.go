@@ -20,10 +20,7 @@ func init() {
 }
 
 func main() {
-  mux := http.NewServeMux()
-  mux.HandleFunc("/", index)
-  mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-  http.ListenAndServe(":8080", mux)
+ 
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
