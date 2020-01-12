@@ -43,3 +43,10 @@ func (usi *UserServiceImpl) EditUser(user *models.User)(*models.User,[]error) {
 	}
 	return urs,nil
 }
+func (usi *UserServiceImpl) DeleteUser(id uint)(*models.User,error) {
+	urs,err := usi.userRepo.DeleteUser(id)
+	if err != nil {
+		return urs,nil
+	}
+	return urs,nil
+}
