@@ -32,3 +32,20 @@ func (as *CommentService) Comment(id uint) (*models.Comment, []error) {
 	}
 	return commt, errs
 }
+//Updatecomment updates a given comment
+func (as *CommentService) UpdateComment(comment *models.Comment) (*models.Comment, []error) {
+	commt, errs := as.commentRepo.UpdateComment(comment)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
+
+//Deletecomment deletes a given comment
+func (as *CommentService) DeleteComment(id uint) (*models.Comment, []error) {
+	commt, errs := as.commentRepo.DeleteComment(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return commt, errs
+}
