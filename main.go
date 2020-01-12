@@ -23,9 +23,16 @@ func main() {
  db:=database.Conn()
 
 	defer db.Close()
-	  comntRepo := comntrepo.NewCommentGormRepo(db)
+    comntRepo := comntrepo.NewCommentGormRepo(db)
     comntServ := comntserv.NewCommentService(comntRepo)
    	commentHandler := handlers.NewCommentHandler(comntServ)
+	
+	postRepo := postrepo.NewPostGormRepo(db)
+	postService := postserv.NewPostService(postRepo)
+	postHandler := handlers.NewPostHandler(postService)
+
+
+	
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
