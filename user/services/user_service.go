@@ -21,7 +21,12 @@ func (usi *UserServiceImpl) RegisterUser(user *models.User) (*models.User,error)
 	return usr,nil
 }
 
-
+func (usi *UserServiceImpl) AuthenticateUser(userName string, password string) (*models.Usercheck, error) {
+	user, err := usi.userRepo.AuthenticateUser(userName, password)
+	if err != nil {
+		return user, err
+	}
+	return user, nil
 }
 func (usi *UserServiceImpl) GetUser(userName string) (*models.User, error) {
 	//check username?
