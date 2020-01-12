@@ -147,3 +147,23 @@ func (uh *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
 	uh.tmpl.ExecuteTemplate(w, "index.html", u)
 
 }
+
+
+func (uh *UserHandler) Logout(w http.ResponseWriter, req *http.Request) {
+	if !uh.alreadyLoggedIn(req) {
+		http.Redirect(w, req, "/", http.StatusSeeOther)
+		return
+	}
+	c, _ := req.Cookie("session")
+	//delete the session
+	delete(dbSessions, c.Value)
+	//remove the cookie
+	c = &http.Cookie{
+		Name:   "session",
+		Value:  "",
+		MaxAge: -1,
+	}
+	http.SetCookie(w, c)
+	http.Redirect(w,req,"/", http.StatusSeeOther)
+}
+
