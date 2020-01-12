@@ -36,3 +36,10 @@ func (usi *UserServiceImpl) GetUser(userName string) (*models.User, error) {
 	return user, nil
 
 }
+func (usi *UserServiceImpl) EditUser(user *models.User)(*models.User,[]error) {
+	urs,err := usi.userRepo.EditUser(user)
+	if err != nil {
+		return urs,err
+	}
+	return urs,nil
+}
