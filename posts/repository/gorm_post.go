@@ -46,3 +46,19 @@ func (postRepo *PostGormRepo) UpdatePost(posts *models.Post) (*models.Post, []er
 	}
 	return post, errs
 }
+
+//DeletePost deletes a Post with a given id from the database
+func (postRepo *PostGormRepo) DeletePost(id uint) (*models.Post, []error) {
+	post, errs := postRepo.GetPost(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	// errs := postRepo.conn.Where("id = ?", id).First(&post).GetErrors()
+	errs = postRepo.conn.Delete(post).GetErrors()
+
+
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return post, errs
+}
