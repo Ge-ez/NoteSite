@@ -22,3 +22,12 @@ func (ps *PostService) Posts() ([]models.Post, []error) {
 	}
 	return posts, err
 }
+
+//Post retrieves stored Post given its id
+func (ps *PostService) GetPost(id uint) (*models.Post, []error) {
+	post, err := ps.postRep.GetPost(id)
+	if len(err) > 0 {
+		return nil, err
+	}
+	return post, err
+}
