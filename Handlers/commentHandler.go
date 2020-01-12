@@ -74,3 +74,34 @@ func (ah *CommentHandler) GetComment(w http.ResponseWriter, r *http.Request, ps 
 	return
 
 }
+//Postcomment handles POST comment request
+func (ah *CommentHandler) PostComment(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+
+	l := r.ContentLength
+	body := make([]byte, l)
+	r.Body.Read(body)
+	comment := &models.Comment{}
+
+	err := json.Unmarshal(body, comment)
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		fmt.Println(body)
+		return
+	}
+
+	comment, errs := ah.commentService.StoreComment(comment)
+
+	if len(errs) > 0 {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+
+	p := fmt.Sprintf("posts/%d", comment.ID)
+
+	w.Header().Set("Location", p)
+	http.Error(w, http.StatusText(http.StatusCreated), http.StatusCreated)
+	return
+}
