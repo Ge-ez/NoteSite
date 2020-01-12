@@ -36,3 +36,13 @@ func (postRepo *PostGormRepo) GetPost(id uint) (*models.Post, []error) {
 	}
 	return &post, errs
 }
+
+//UpdatePost updates a given Post in the database
+func (postRepo *PostGormRepo) UpdatePost(posts *models.Post) (*models.Post, []error) {
+	post := posts
+	errs := postRepo.conn.Save(post).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return post, errs
+}
