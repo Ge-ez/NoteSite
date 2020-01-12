@@ -61,3 +61,41 @@ func (uh *UserHandler) getUser(w http.ResponseWriter, req *http.Request) *models
 	return u
 }
 
+func (uh *UserHandler) Index(w http.ResponseWriter, req *http.Request) {
+	u := uh.getUser(w, req)
+	uh.tmpl.ExecuteTemplate(w, "index.html", u)
+}
+
+//Login handle request on route /login
+func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
+	if uh.alreadyLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	if r.Method == http.MethodPost {
+
+		userName := r.FormValue("Lusername")
+		password := r.FormValue("Lpassword")
+
+		_, err := uh.userSrv.AuthenticateUser(userName, password)
+		if err != nil {
+			//panic(err)
+			http.Error(w,"Incorrect Username/Password",404)
+		}
+
+		sID, _ := uuid.NewV4()
+		c := &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+		http.SetCookie(w, c)
+		dbSessions[c.Value] = userName
+		http.Redirect(w, r, "/homepage", http.StatusSeeOther)
+
+		return
+
+	}
+	uh.tmpl.ExecuteTemplate(w, "index.html", nil)
+}
+
