@@ -11,3 +11,6 @@ type Post struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+func (Post) TableName() string {
+	return "posts"
+}
