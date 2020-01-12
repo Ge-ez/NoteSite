@@ -31,3 +31,12 @@ func (ps *PostService) GetPost(id uint) (*models.Post, []error) {
 	}
 	return post, err
 }
+
+//UpdatePost updates a given Post
+func (ps *PostService) UpdatePost(post *models.Post) (*models.Post, []error) {
+	post, err := ps.postRep.UpdatePost(post)
+	if len(err) > 0 {
+		return nil, err
+	}
+	return post, err
+}
