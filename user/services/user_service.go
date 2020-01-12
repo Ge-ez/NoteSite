@@ -27,3 +27,12 @@ func (usi *UserServiceImpl) AuthenticateUser(userName string, password string) (
 	}
 	return user, nil
 }
+func (usi *UserServiceImpl) GetUser(userName string) (*models.User, error) {
+	//check username?
+	user, err := usi.userRepo.GetUser(userName)
+	if err != nil {
+		return user, err
+	}
+	return user, nil
+
+}
