@@ -40,6 +40,12 @@ func main() {
 	router.PUT("/posts/:id", postHandler.PutPost)
 	router.DELETE("/posts/:id", postHandler.DeletePost)
 	
+	
+	router.GET("/comments", commentHandler.GetComments)
+	router.GET("/comments/:id", commentHandler.GetComment)
+	router.POST("/comment", commentHandler.PostComment)
+	router.PUT("/comments/:id", commentHandler.PutComment)
+	router.DELETE("/comments/:id", commentHandler.DeleteComment
 
 }
 
