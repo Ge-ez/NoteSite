@@ -38,5 +38,13 @@ func (ps *PostService) UpdatePost(post *models.Post) (*models.Post, []error) {
 	if len(err) > 0 {
 		return nil, err
 	}
+	//DeletePost deletes a given Post
+func (ps *PostService) DeletePost(id uint) (*models.Post, []error) {
+	post, err := ps.postRep.DeletePost(id)
+	if len(err) > 0 {
+		return nil, err
+	}
+	return post, err
+}
 	return post, err
 }
