@@ -25,3 +25,14 @@ func (postRepo *PostGormRepo) Posts() ([]models.Post, []error) {
 	}
 	return posts, errs
 }
+
+//Post returns a user Post stored in the database which has the given id
+func (postRepo *PostGormRepo) GetPost(id uint) (*models.Post, []error) {
+	post := models.Post{}
+	errs := postRepo.conn.Where("id = ?", id).First(&post).GetErrors()
+	// errs := postRepo.conn.First(&post, id).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return &post, errs
+}
