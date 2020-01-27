@@ -62,3 +62,12 @@ func checkRole(role string, roles []string) bool {
 	return false
 }
 
+func checkMethod(method string, methods []string) bool {
+	for _, m := range methods {
+		if strings.ToUpper(m) == strings.ToUpper(method) {
+			return true
+		}
+	}
+	return false
+}
+
