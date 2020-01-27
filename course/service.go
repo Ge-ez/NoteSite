@@ -1,5 +1,4 @@
 package course
-package course
 
 import (
     "github.com/notesite/models"
