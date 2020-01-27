@@ -13,3 +13,15 @@ type CourseServiceImpl struct {
 func NewCourseServiceImpl(CourseRepo course.CourseRepository) course.CourseService {
 	return &CourseServiceImpl{courseRepo: CourseRepo}
 }
+// Courses returns the courses
+func (crs *CourseServiceImpl) Courses() ([]models.Course, []error) {
+
+	crs, errs := crs.courseRepo.Courses()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return crs, errs
+
+}
+
+// Course retrievs a given course course by its id
