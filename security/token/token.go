@@ -13,3 +13,19 @@ func Generate(signingKey []byte, claims jwt.Claims) (string, error) {
 	signedString, err := tn.SignedString(signingKey)
 	return signedString, err
 }
+// Valid validates a given token
+func Valid(signedToken string, signingKey []byte) (bool, error) {
+	token, err := jwt.ParseWithClaims(signedToken, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return signingKey, nil
+	})
+
+	if err != nil {
+		return false, err
+	}
+
+	if _, ok := token.Claims.(*CustomClaims); !ok || !token.Valid {
+		return false, err
+	}
+
+	return true, nil
+}
