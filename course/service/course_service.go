@@ -25,3 +25,13 @@ func (crs *CourseServiceImpl) Courses() ([]models.Course, []error) {
 }
 
 // Course retrievs a given course course by its id
+func (crs *CourseServiceImpl) Course(id uint) (*models.Course, []error) {
+	cr, errs := crs.courseRepo.Course(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return cr, errs
+
+}
+
+// UpdateCourse updates a given course course
