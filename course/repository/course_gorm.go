@@ -74,3 +74,13 @@ func (courseRepo *CourseRepositoryImpl) DeleteCourse(id uint) (*models.Course, [
 
 // StoreCourse stores a given course Course in the database
 
+func (CourseRepo *CourseRepositoryImpl) StoreCourse(course *models.Course) (*models.Course, []error) {
+	c := course
+	errs := courseRepo.conn.Create(c).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return r, errs
+}
+
+
