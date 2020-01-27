@@ -46,3 +46,15 @@ func CSRFToken(signingKey []byte) (string, error) {
 	}
 	return signedString, nil
 }
+// ValidCSRF checks if a given csrf token is valid
+func ValidCSRF(signedToken string, signingKey []byte) (bool, error) {
+	token, err := jwt.Parse(signedToken, func(token *jwt.Token) (interface{}, error) {
+		return signingKey, nil
+	})
+
+	if err != nil || !token.Valid {
+		return false, err
+	}
+
+	return true, nil
+}
