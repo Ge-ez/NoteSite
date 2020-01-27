@@ -37,3 +37,14 @@ func (courseRepo *CourseRepositoryImpl) Course(id uint) (*models.Course, []error
 }
 
 // CourseByName retrieves a Course by its name from the database
+
+func (courseRepo *CourseRepositoryImpl) CourseByName(name string) (*models.course, []error) {
+	course := models.Course{}
+	errs := courseRepo.conn.Find(&course, "name=?", name).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return &course, errs
+}
+
+// Updatecourse updates a given course course in the database
