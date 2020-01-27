@@ -27,3 +27,13 @@ func (courseRepo *CourseRepositoryImpl) Courses() ([]models.Course, []error) {
 }
 
 // course retrieves a course by its id from the database
+func (courseRepo *CourseRepositoryImpl) Course(id uint) (*models.Course, []error) {
+	course := models.Course{}
+	errs := courseRepo.conn.First(&course, id).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return &course, errs
+}
+
+// CourseByName retrieves a Course by its name from the database
