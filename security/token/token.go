@@ -37,3 +37,12 @@ func Claims(username string, tokenExpires int64) jwt.Claims {
 		},
 	}
 }
+// CSRFToken Generates random string for CSRF
+func CSRFToken(signingKey []byte) (string, error) {
+	tn := jwt.New(jwt.SigningMethodHS256)
+	signedString, err := tn.SignedString(signingKey)
+	if err != nil {
+		return "", err
+	}
+	return signedString, nil
+}
