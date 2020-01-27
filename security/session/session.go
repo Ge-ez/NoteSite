@@ -30,3 +30,14 @@ func Valid(cookieValue string, signingKey []byte) (bool, error) {
 	}
 	return true, nil
 }
+
+// Remove expires existing session
+func Remove(sessionID string, w http.ResponseWriter) {
+	c := http.Cookie{
+		Name:    sessionID,
+		MaxAge:  -1,
+		Expires: time.Unix(1, 0),
+		Value:   "",
+	}
+	http.SetCookie(w, &c)
+}
