@@ -48,3 +48,14 @@ func (courseRepo *CourseRepositoryImpl) CourseByName(name string) (*models.cours
 }
 
 // Updatecourse updates a given course course in the database
+
+func (courseRepo *CourseRepositoryImpl) UpdateCourse(course *models.Course) (*models.Course, []error) {
+	c := course
+	errs := courseRepo.conn.Save(r).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return r, errs
+}
+
+// DeleteCourse deletes a given course Course from the database
