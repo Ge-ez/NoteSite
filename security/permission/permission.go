@@ -41,3 +41,14 @@ var authorities = authority{
     		methods: []string{"POST"},
     	},
 }
+
+// HasPermission checks if a given role has permission to access a given route for a given method
+func HasPermission(path string, role string, method string) bool {
+	perm := authorities[path]
+	checkedRole := checkRole(role, perm.roles)
+	checkedMethod := checkMethod(method, perm.methods)
+	if !checkedRole || !checkedMethod {
+		return false
+	}
+	return true
+}
