@@ -52,3 +52,13 @@ func HasPermission(path string, role string, method string) bool {
 	}
 	return true
 }
+
+func checkRole(role string, roles []string) bool {
+	for _, r := range roles {
+		if strings.ToUpper(r) == strings.ToUpper(role) {
+			return true
+		}
+	}
+	return false
+}
+
