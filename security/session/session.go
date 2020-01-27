@@ -22,3 +22,11 @@ func Create(claims jwt.Claims, sessionID string, signingKey []byte, w http.Respo
 	}
 	http.SetCookie(w, &c)
 }
+// Valid validates client cookie value
+func Valid(cookieValue string, signingKey []byte) (bool, error) {
+	valid, err := token.Valid(cookieValue, signingKey)
+	if err != nil || !valid {
+		return false, errors.New("Invalid Session Cookie")
+	}
+	return true, nil
+}
