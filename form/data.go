@@ -16,6 +16,7 @@ type Input struct {
 	VErrors ValidationErrors
 	CSRF    string
 }
+
 // MinLength checks if a given minium length is satisfied
 func (inVal *Input) MinLength(field string, d int) {
 	value := inVal.Values.Get(field)
@@ -34,5 +35,16 @@ func (inVal *Input) Required(fields ...string) {
 		if value == "" {
 			inVal.VErrors.Add(f, "This field is required field")
 		}
+	}
+}
+
+// MatchesPattern checks if a given input form field matchs a given pattern
+func (inVal *Input) MatchesPattern(field string, pattern *regexp.Regexp) {
+	value := inVal.Values.Get(field)
+	if value == "" {
+		return
+	}
+	if !pattern.MatchString(value) {
+		inVal.VErrors.Add(field, "The value entered is invalid")
 	}
 }
