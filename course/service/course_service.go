@@ -35,3 +35,13 @@ func (crs *CourseServiceImpl) Course(id uint) (*models.Course, []error) {
 }
 
 // UpdateCourse updates a given course course
+func (crs *CourseServiceImpl) UpdateCourse(course *models.Course) (*models.Course, []error) {
+	cr, errs := crs.courseRepo.UpdateCourse(course)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return cr, errs
+
+}
+
+// DeleteCourse deletes a given course course
