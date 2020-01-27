@@ -59,3 +59,18 @@ func (courseRepo *CourseRepositoryImpl) UpdateCourse(course *models.Course) (*mo
 }
 
 // DeleteCourse deletes a given course Course from the database
+
+func (courseRepo *CourseRepositoryImpl) DeleteCourse(id uint) (*models.Course, []error) {
+	c, errs := courseRepo.Course(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	errs = courseRepo.conn.Delete(r, id).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return r, errs
+}
+
+// StoreCourse stores a given course Course in the database
+
