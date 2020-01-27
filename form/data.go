@@ -48,3 +48,24 @@ func (inVal *Input) MatchesPattern(field string, pattern *regexp.Regexp) {
 		inVal.VErrors.Add(field, "The value entered is invalid")
 	}
 }
+
+// PasswordMatches checks if Password and Confirm Password fields match
+func (inVal *Input) PasswordMatches(password string, confPassword string) {
+	pwd := inVal.Values.Get(password)
+	confPwd := inVal.Values.Get(confPassword)
+
+	if pwd == "" || confPwd == "" {
+		return
+	}
+
+	if pwd != confPwd {
+		inVal.VErrors.Add(password, "The Password and Confirm Password values did not match")
+		inVal.VErrors.Add(confPassword, "The Password and Confirm Password values did not match")
+	}
+}
+
+// Valid checks if any form input validation has failed or not
+func (inVal *Input) Valid() bool {
+	return len(inVal.VErrors) == 0
+}
+
