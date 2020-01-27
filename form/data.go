@@ -16,3 +16,23 @@ type Input struct {
 	VErrors ValidationErrors
 	CSRF    string
 }
+// MinLength checks if a given minium length is satisfied
+func (inVal *Input) MinLength(field string, d int) {
+	value := inVal.Values.Get(field)
+	if value == "" {
+		return
+	}
+	if utf8.RuneCountInString(value) < d {
+		inVal.VErrors.Add(field, fmt.Sprintf("This field is too short (minimum is %d characters)", d))
+	}
+}
+
+// Required checks if list of provided form input fields have values
+func (inVal *Input) Required(fields ...string) {
+	for _, f := range fields {
+		value := inVal.Values.Get(f)
+		if value == "" {
+			inVal.VErrors.Add(f, "This field is required field")
+		}
+	}
+}
