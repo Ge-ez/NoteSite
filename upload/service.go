@@ -11,5 +11,4 @@ type UploadService interface{
      NotesByStatus(status string) ([]models.Upload,[]error)
      NotesByUploader(id uint) ([]models.Upload,[]error)
      NotesByCourseName(course string) ([]models.Upload,[]error)
-
  }
