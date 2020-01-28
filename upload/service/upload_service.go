@@ -35,3 +35,18 @@ func (usi *UploadServiceImpl) Note(id uint) (*models.Upload,[]error){
     	}
     	return note, nil
 }
+
+func (usi *UploadServiceImpl) UpdateNote(update *models.Upload) (*models.Upload,[]error){
+   note,err := usi.uploadrepo.UpdateNote(update)
+   	if len(err) > 0 {
+   		return note,err
+   	}
+   	return note,nil
+}
+func (usi *UploadServiceImpl) DeleteNote(id uint) (*models.Upload,[]error){
+    note,err := usi.uploadrepo.DeleteNote(id)
+    	if len(err) > 0 {
+    		return nil,err
+    	}
+    	return note,nil
+}
