@@ -21,3 +21,21 @@ func (upld *UploadRepositoryImpl) StoreNote(notes *models.Upload) (*models.Uploa
 	}
 	return note, errs
 }
+
+func (upld *UploadRepositoryImpl) Notes() (*models.Upload,[]error){
+        notes := []models.Upload{}
+    	errs := upld.conn.Find(&notes).GetErrors()
+    	if len(errs) > 0 {
+    		return nil, errs
+    	}
+    	return notes, errs
+}
+
+func (upld *UploadRepositoryImpl) Note(id uint) (*models.Upload,[]error){
+    note := models.Upload{}
+    	errs := upld.conn.First(&note, id).GetErrors()
+    	if len(errs) > 0 {
+    		return nil, errs
+    	}
+    	return &note, errs
+}
