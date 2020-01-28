@@ -121,3 +121,19 @@ exts := []string{".pdf", ".docx", ".sys", ".txt", ".doc", ".ppt" , ".pptx",".zip
 		http.Redirect(w, r, "/homepage", http.StatusSeeOther)
 	}
 }
+
+func (upldhand *UploadHandler) DeleteNotesHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		idRaw := r.URL.Query().Get("id")
+		id, err := strconv.Atoi(idRaw)
+		id = uint(id)
+		if err != nil {
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		}
+		_, errs := upldhand.uploadService.DeleteNote(id)
+		if len(errs) > 0 {
+			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		}
+	}
+	http.Redirect(w, r, "/mynotes", http.StatusSeeOther)
+}
