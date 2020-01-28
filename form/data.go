@@ -6,7 +6,11 @@ import (
 	"regexp"
 	"unicode/utf8"
 )
-
+   //re := regexp.MustCompile(".+@.+\\..+")
+  //matched := re.Match([]byte(msg.Email))
+ // if matched == false {
+   // msg.Errors["Email"] = "Please enter a valid email address"
+  //}
 // EmailRX represents email address maching pattern
 var EmailRX = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
@@ -63,9 +67,16 @@ func (inVal *Input) PasswordMatches(password string, confPassword string) {
 		inVal.VErrors.Add(confPassword, "The Password and Confirm Password values did not match")
 	}
 }
+func ExtensionChecker(file string, checker []string) bool {
+    for _, ext := range checker {
+        if ext == file {
+            return true
+        }
+    }
+    return false
+}
 
 // Valid checks if any form input validation has failed or not
 func (inVal *Input) Valid() bool {
 	return len(inVal.VErrors) == 0
 }
-
