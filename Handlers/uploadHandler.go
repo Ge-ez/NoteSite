@@ -31,3 +31,26 @@ func NewUploadHandler(t *template.Template,
 	    uploadService: upldServ,
 	    csrfSignKey: csKey}
 }
+
+func (upldhand *NewUploadHandler) UploadedNotesHandler(w http.ResponseWriter, r *http.Request) {
+	notes, errs := ach.categorySrv.NotesByCourseName(upldhand.loggedInUser.Course)
+	if errs != nil {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+	}
+	token, err := rtoken.CSRFToken(ach.csrfSignKey)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
+	tmplData := struct {
+		Values     url.Values
+		VErrors    form.ValidationErrors
+		Notes []entity.Category
+		CSRF       string
+	}{
+		Values:     nil,
+		VErrors:    nil,
+		Notes: notes,
+		CSRF:       token,
+	}
+	upldhand.tmpl.ExecuteTemplate(w, "homepage.layout", tmplData)
+}
