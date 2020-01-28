@@ -27,3 +27,11 @@ func (usi *UploadServiceImpl) Notes() (*models.Upload,[]error){
         	}
         	return notes, err
 }
+
+func (usi *UploadServiceImpl) Note(id uint) (*models.Upload,[]error){
+    note, err := usi.uploadrepo.Note(id)
+    	if len(err) > 0 {
+    		return nil, err
+    	}
+    	return note, nil
+}
