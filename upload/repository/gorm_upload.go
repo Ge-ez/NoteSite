@@ -59,3 +59,30 @@ func (upld *UploadRepositoryImpl) DeleteNote(id uint) (*models.Upload,[]error){
     	}
     	return note, errs
 }
+
+func (upld *UploadRepositoryImpl) NoteByStatus(status string) (*models.Upload,[]error){
+        note := models.Upload{}
+    	errs := upld.conn.Find(&note, "file_status=?", status).GetErrors()
+    	if len(errs) > 0 {
+    		return nil, errs
+    	}
+    	return &note, errs
+}
+
+func (upld *UploadRepositoryImpl) NoteByUploader(id uint) (*models.Upload,[]error){
+        note := models.Upload{}
+    	errs := upld.conn.Find(&note, "file_uploader=?", id).GetErrors()
+    	if len(errs) > 0 {
+    		return nil, errs
+    	}
+    	return &note, errs
+}
+
+func (upld *UploadRepositoryImpl) NoteByCourseName(course string) (*models.Upload,[]error){
+        note := models.Upload{}
+    	errs := upld.conn.Find(&note, "file_uploaded_on=?", id).GetErrors()
+    	if len(errs) > 0 {
+    		return nil, errs
+    	}
+    	return &note, errs
+}
