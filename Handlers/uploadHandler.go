@@ -23,3 +23,11 @@ type UploadHandler struct {
 	loggedInUser   *models.User
 	csrfSignKey []byte
 }
+
+func NewUploadHandler(t *template.Template,
+    upldServ upload.UploadService,csKey []byte) *UploadHandler{
+	return &UploadHandler{
+	    tmpl: t,
+	    uploadService: upldServ,
+	    csrfSignKey: csKey}
+}
