@@ -9,7 +9,7 @@ type UploadServiceImpl struct{
     uploadrepo upload.UploadRepository
 }
 
-func NewUploadSericeImpl(upldServ *UploadServiceImpl) *UploadServiceImpl{
+func NewUploadServiceImpl(upldServ upload.UploadRepository) upload.UploadService{
     return &UploadServiceImpl{uploadrepo:upldServ}
 }
 
@@ -20,7 +20,7 @@ func (usi *UploadServiceImpl) StoreNote(notes *models.Upload) (*models.Upload, [
     	}
     	return note,nil
 }
-func (usi *UploadServiceImpl) Notes() (*models.Upload,[]error){
+func (usi *UploadServiceImpl) Notes() ([]models.Upload,[]error){
         notes, err := usi.uploadrepo.Notes()
         	if len(err) > 0 {
         		return nil, err
@@ -51,26 +51,28 @@ func (usi *UploadServiceImpl) DeleteNote(id uint) (*models.Upload,[]error){
     	return note,nil
 }
 
-func (usi *UploadServiceImpl) NoteByStatus(status string) (*models.Upload,[]error){
-        note, err := usi.uploadrepo.NoteByStatus(status)
+
+func (usi *UploadServiceImpl) NotesByStatus(status string) ([]models.Upload,[]error){
+        note, err := usi.uploadrepo.NotesByStatus(status)
           	if len(err) > 0 {
           		return nil, err
           	}
           	return note, err
 }
 
-func (usi *UploadServiceImpl) NoteByUploader(id uint) (*models.Upload,[]error){
-        note, err := usi.uploadrepo.NoteByUploader(id)
+func (usi *UploadServiceImpl) NotesByUploader(id uint) ([]models.Upload,[]error){
+        note, err := usi.uploadrepo.NotesByUploader(id)
           	if len(err) > 0 {
           		return nil, err
           	}
           	return note, err
 }
 
-func (usi *UploadServiceImpl) NoteByCourseName(course string) (*models.Upload,[]error){
-        note, err := usi.uploadrepo.NoteByCourseName(course)
+func (usi *UploadServiceImpl) NotesByCourseName(course string) ([]models.Upload,[]error){
+        note, err := usi.uploadrepo.NotesByCourseName(course)
           	if len(err) > 0 {
           		return nil, err
           	}
           	return note, err
 }
+
