@@ -11,6 +11,5 @@ type UploadRepository interface{
      NotesByStatus(status string) ([]models.Upload,[]error)
      NotesByUploader(id uint) ([]models.Upload,[]error)
      NotesByCourseName(course string) ([]models.Upload,[]error)
-     RateArticle(rating *models.Rating)
-     NoteRateCount(FileId uint) int
+
  }
