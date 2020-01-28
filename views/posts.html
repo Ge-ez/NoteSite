@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--QUestions css-->
+    <link rel="stylesheet" href="assets/css/questions.css">
+    <link rel="stylesheet" href="assets/css/universal.css">
+
+
+</head>
+
+<body>
+<!--Navbar starts here-->
+
+{{template "navbar" .LoggedIn}}
+<!--QUestion page starts here-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-12 p-2 bg-white">
+            <div class="card ask-card shadow-sm mx-1">
+                <div class="card-body">
+                    <form action="/posts/post" method="post">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Wanna Post?</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="inquiryBody" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-outline-accent w-25 rounded-pill shadow-sm bg-green ">
+                            Ask
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+            <div class="card ask-card shadow-sm mx-1 my-2">
+                <div class="card-body">
+                    <p class="lead"> <i>Whats up?</i></p>
+                    <a href="#">See answer.</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="p-2 col-lg-8 col-md-8 col-12">
+            <!--Question item starts here-->
+            {{range .Questions}}
+                <div class="card bg-white mr-auto shadow-m question-card border-none shadow-sm mb-2" id="card">
+                    <input value="{{.ID}}" class="post-id" type="hidden">
+                    <div class="card-body flex-column">
+
+                        <p class="card-text lead"><span class="text-accent">&ldquo;</span>
+                            {{.Text}}
+                            <span class="text-accent">&rdquo;</span>
+                        </p>
+                        <span class="card-title font-weight-bold text-accent">John Doe</span>
+                        <a href="#" id="name-of-{{.UserID}}" class="font-weight-light text-accent"></a>
+                        <p class="text-accent"><i>{{.AskedAt}}</i></p>
+                        <hr />
+                        <div class=" col-12 text-center btn-group">
+{{/*                            <div class="">*/}}
+
+                                </form>
+                                <form action="posts" method="GET" class="form-inline col-2 btn-xs mr-auto ml-3 pt-2">
+                                    <input value="{{.ID}}" type="hidden" name="post-id">
+                                    <button type="button"  id="comments-{{.ID}}"
+                                            ype="submit" data-toggle="tooltip" data-placement="top" title="See answers or answer it yourself"
+                                            class="btn btn-outline-success  d-inline btn-xs col-12 rounded-pill shadow-sm bg-green">
+                                        <i class="material-icons">
+                                            question_answer
+                                        </i>
+                                    </button>
+                                </form>
+
+{{/*                            </div>*/}}
+                        </div>
+                    </div>
+                </div>
+            {{ end}}
+            <!--QUestion item ends here-->
+        </div>
+
+
+    </div>
+</div>
+<input type="hidden" id="savior" value="{{.UserID}}">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="assets/js/questions.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

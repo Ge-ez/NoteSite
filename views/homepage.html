@@ -1,0 +1,48 @@
+{{define "homepage.layout"}}
+{{template "nav" .}}
+{{template "homepage" .}}
+{{template "footer" .}}
+{{end}}
+{{define "homepage"}}
+<h3 class="page-header">
+  <center>
+    <marquee width="70%"
+      ><font color="green">below are all the uploaded notes!</font></marquee
+    >
+  </center>
+</h3>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <form action="" method="post">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Uploaded by</th>
+              <th>Uploaded on</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+{{/*          <tbody>*/}}
+{{/*          {{ range .Notes }}*/}}
+{{/*            <tr>*/}}
+{{/*              <th scope="row"> {{ .File_Name }} </th>*/}}
+{{/*              <td> {{ .File_Description }} </td>*/}}
+{{/*              <td> {{ .File_Type }} </td>*/}}
+{{/*              <td> {{ .File_Uploader }}  </td>*/}}
+{{/*              <td>{{ .File_Uploader_On }}</td>*/}}
+{{/*              <td> {{ .Download }} </td>*/}}
+{{/*            </tr>*/}}
+{{/*          {{ end }}*/}}
+{{/*          </tbody>*/}}
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{end}}

@@ -1,0 +1,140 @@
+{{define "signup.layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+            rel="stylesheet"
+            href="assets/bootstrap/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="assets/bootstrap/css/bootstrap-grid.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="assets/bootstrap/css/bootstrap-reboot.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/index.css" />
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css" />
+    <title>Homepage</title>
+    <style>
+        body{
+            margin:auto;
+            background:#000000b7;
+        }
+        form{
+            background:#fff;
+            border-radius:10px;
+
+        }
+
+        .signupform{
+            width: 500px;
+            padding:5%;
+
+        }
+        .signupbtn{
+            margin:0 5%;
+
+        }
+        button{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+        <div class="container-fluid">
+                <form action="/signup"  class="signupform" method="post">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        {{with .VErrors.Get "name"}}
+                        <label class="text-danger">{{.}}</label>
+                        {{end}}
+                        <input class="form-control" type="text" name="name" id="name" tabindex="1" value='{{ .Values.Get "fullname" }}'>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        {{with .VErrors.Get "email"}}
+                        <label class="text-danger">{{.}}</label>
+                        {{end}}
+                        <input class="form-control" type="text" name="email" id="email" value='{{ .Values.Get "email" }}'>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        {{with .VErrors.Get "username"}}
+                        <label class="text-danger">{{.}}</label>
+                        {{end}}
+                        <input class="form-control" type="text" name="username" id="username" tabindex="2" value='{{ .Values.Get "username" }}'>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                {{with .VErrors.Get "password"}}
+                                <label class="text-danger">{{.}}</label>
+                                {{end}}
+                                <input class="form-control" type="password" name="password" id="password">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="confrimpassword">Confrim Password:</label>
+                                {{with .VErrors.Get "confirmpassword"}}
+                                <label class="text-danger">{{.}}</label>
+                                {{end}}
+                                <input class="form-control" type="password" name="confrimpassword" id="confrimpassword">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select class="form-control" name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="role">Role:</label>
+                                <select class="form-control" name="role" id="role">
+                                    <option value="teacher">Student</option>
+                                    <option value="student">Teacher</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="course">Field</label>
+                                <select class="form-control" name="course" id="course">
+                                    <option value="itsc">ITSC</option>
+                                    <option value="civil">Civil Engineering</option>
+                                    <option value="mechanical">Mechanical Engineering</option>
+                                    <option value="electrical">Electrical Engineering</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="signupbtn form-group">
+                        <button type="submit" name="signup" class="btn btn-outline-primary" >Signup</button>
+                    </div>
+                    </div>
+                </form>
+                </div>
+
+
+                <script src="assets/js/jquery.js"></script>
+                <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+{{end}}
