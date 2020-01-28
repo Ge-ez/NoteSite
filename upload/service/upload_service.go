@@ -50,3 +50,27 @@ func (usi *UploadServiceImpl) DeleteNote(id uint) (*models.Upload,[]error){
     	}
     	return note,nil
 }
+
+func (usi *UploadServiceImpl) NoteByStatus(status string) (*models.Upload,[]error){
+        note, err := usi.uploadrepo.NoteByStatus(status)
+          	if len(err) > 0 {
+          		return nil, err
+          	}
+          	return note, err
+}
+
+func (usi *UploadServiceImpl) NoteByUploader(id uint) (*models.Upload,[]error){
+        note, err := usi.uploadrepo.NoteByUploader(id)
+          	if len(err) > 0 {
+          		return nil, err
+          	}
+          	return note, err
+}
+
+func (usi *UploadServiceImpl) NoteByCourseName(course string) (*models.Upload,[]error){
+        note, err := usi.uploadrepo.NoteByCourseName(course)
+          	if len(err) > 0 {
+          		return nil, err
+          	}
+          	return note, err
+}
